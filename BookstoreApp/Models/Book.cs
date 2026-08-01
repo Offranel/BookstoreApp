@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security.Permissions;
 
-namespace BookstoreApp
+namespace BookstoreApp.Models
 {
     /// <summary>
     /// Represents an indiduel book for sale
