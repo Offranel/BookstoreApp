@@ -30,6 +30,18 @@ namespace BookstoreApp
         /// </summary>
         public double Price { get; set; }
 
+        /// <summary>
+        /// The 13 character ISBN number.No dashes allowed, digits only
+        /// </summary>
+        public required string ISBN { get; set; }
+        /// <summary>
+        /// The optional user facing description of the book
+        /// </summary>
+        public string? Description {  get; set; }
+        /// <summary>
+        /// A display-friendly representation used by UI lists
+        /// </summary>
+        public string Display => $"{Title} ({ISBN}) - {Price:c2}";
         public override string ToString()
         {
             return $"{Title} - {Price:c2} ";
