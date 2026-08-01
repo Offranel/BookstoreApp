@@ -16,11 +16,13 @@ namespace BookstoreApp
             this.Text = _isUpdate ? "Update Book" : "Add Book";
             txtTitle = new TextBox { Left = 20, Top = 20, Width = 200, Text = string.Empty, PlaceholderText = "Title" };
             txtPrice = new TextBox { Left = 20, Top = 60, Width = 200, Text = string.Empty, PlaceholderText = "Price" };
+            txtISBN = new TextBox { Left = 20, Top = 100, Width = 200, Text = string.Empty, PlaceholderText = "ISBN" };
 
             if (_book != null)
             {
                 txtTitle.Text = _book.Title;
                 txtPrice.Text = _book.Price.ToString();
+                txtISBN.Text = _book.ISBN;
             }
                     }
         public AddUpdateBook(Book? book = null)
@@ -30,24 +32,30 @@ namespace BookstoreApp
             _isUpdate = book != null;
             _book = book;
 
+            
+
             if (_book != null)
             {
                 Book = new Book
-                {
+               {
                     Id = _book.Id,
                     Title = _book.Title,
-                    Price = _book.Price
+                    Price = _book.Price,
+                    ISBN = _book.ISBN
                 };
 
-                txtTitle.Text = Book.Title;
+               txtTitle.Text = Book.Title;
                 txtPrice.Text =
-                    Book.Price.ToString(CultureInfo.InvariantCulture);
+                  Book.Price.ToString(CultureInfo.InvariantCulture);
+                txtISBN.Text = Book.ISBN;
             }
             else
             {
                 Book = new Book
                 {
-                    Title = ""
+                    Title = "",
+                    Price = 0,
+                    ISBN = txtISBN.Text,
                 };
             }
         }
@@ -82,8 +90,22 @@ namespace BookstoreApp
                 return;
             }
 
+            var isbn = txtISBN.Text?.Trim();
+
+            if (string.IsNullOrEmpty(isbn) || isbn.Length != 13 || !ulong.TryParse(isbn, out _))
+            {
+                MessageBox.Show(
+                    "ISBN is required and must be 13 digits (no dashes)",
+                    "Validation",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
             Book.Title = title;
             Book.Price = price;
+            Book.ISBN = isbn!;
 
             DialogResult = DialogResult.OK;
             Close();

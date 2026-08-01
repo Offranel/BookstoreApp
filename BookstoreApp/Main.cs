@@ -28,7 +28,7 @@ namespace BookstoreApp
                 .ToListAsync();
 
             lstBooks.DataSource = books;
-            lstBooks.DisplayMember = "Title";
+            lstBooks.DisplayMember = "Display";
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
@@ -69,6 +69,7 @@ namespace BookstoreApp
             {
                 book.Title = form.Book.Title;
                 book.Price = form.Book.Price;
+                book.ISBN = form.Book.ISBN;
 
                 await db.SaveChangesAsync();
                 await LoadBooksAsync();

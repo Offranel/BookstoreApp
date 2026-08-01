@@ -5,8 +5,10 @@ namespace BookstoreApp
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblPrice;
+        private System.Windows.Forms.Label lblISBN;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
 
@@ -23,8 +25,10 @@ namespace BookstoreApp
         {
             txtTitle = new TextBox();
             txtPrice = new TextBox();
+            txtISBN = new TextBox();
             lblTitle = new Label();
             lblPrice = new Label();
+            lblISBN = new Label();
             btnOk = new Button();
             btnCancel = new Button();
             SuspendLayout();
@@ -43,6 +47,13 @@ namespace BookstoreApp
             txtPrice.Size = new Size(100, 47);
             txtPrice.TabIndex = 3;
             // 
+            // txtISBN
+            // 
+            txtISBN.Location = new Point(70, 100);
+            txtISBN.Name = "txtISBN";
+            txtISBN.Size = new Size(200, 47);
+            txtISBN.TabIndex = 5;
+            // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
@@ -60,6 +71,15 @@ namespace BookstoreApp
             lblPrice.Size = new Size(82, 41);
             lblPrice.TabIndex = 2;
             lblPrice.Text = "Price";
+            // 
+            // lblISBN
+            // 
+            lblISBN.AutoSize = true;
+            lblISBN.Location = new Point(12, 103);
+            lblISBN.Name = "lblISBN";
+            lblISBN.Size = new Size(62, 41);
+            lblISBN.TabIndex = 4;
+            lblISBN.Text = "ISBN";
             // 
             // btnOk
             // 
@@ -90,6 +110,8 @@ namespace BookstoreApp
             Controls.Add(txtTitle);
             Controls.Add(lblPrice);
             Controls.Add(txtPrice);
+            Controls.Add(lblISBN);
+            Controls.Add(txtISBN);
             Controls.Add(btnOk);
             Controls.Add(btnCancel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
