@@ -22,5 +22,9 @@ namespace BookstoreApp.Models
         /// The name of the Genre
         /// </summary>
         public required string Name { get; set; }
+        /// <summary>
+        /// Books that contain this genre
+        /// </summary>
+        public List<Book> Books { get; set; } = [];
     }
 }

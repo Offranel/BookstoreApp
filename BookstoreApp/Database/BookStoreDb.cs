@@ -19,5 +19,5 @@ internal class BookStoreDb : DbContext
     }                               
     // Add entaties to track in the database as DbSets below
     public DbSet<Book> Books { get; set; }
-   
+    public DbSet<Genre> Genres { get; set; }
 }
