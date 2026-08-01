@@ -29,5 +29,11 @@ namespace BookstoreApp
         /// Sales price of the book
         /// </summary>
         public double Price { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Title} - {Price:c2} ";
+        }
     }
+       
 }
