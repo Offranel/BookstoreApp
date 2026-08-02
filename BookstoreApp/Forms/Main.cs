@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BookstoreApp.Database;
+using BookstoreApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreApp
