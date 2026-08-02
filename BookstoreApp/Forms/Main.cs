@@ -40,9 +40,12 @@ namespace BookstoreApp
             {
                 using var db = new BookStoreDb();
 
+           foreach (Genre genre in form.Book.Genres)
+                {
+                    db.Genres.Attach(genre);
+                }
                 await db.Books.AddAsync(form.Book);
                 await db.SaveChangesAsync();
-
                 await LoadBooksAsync();
             }
         }

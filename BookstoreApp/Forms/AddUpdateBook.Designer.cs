@@ -130,10 +130,10 @@ namespace BookstoreApp
             cmbGenres.DropDownStyle = ComboBoxStyle.DropDownList;
 
             
-            btnOk.Location = new Point(180, 360);
+            btnOk.Location = new Point(120, 360);
             btnOk.Name = "btnOk";
-            btnOk.Size = new Size(90, 50);
-            btnOk.TabIndex = 6;
+            btnOk.Size = new Size(300, 45);
+            btnOk.TabIndex = 10;
             btnOk.Text = "save";
             btnOk.UseVisualStyleBackColor = true;
             btnOk.Click += btnOk_Click;
