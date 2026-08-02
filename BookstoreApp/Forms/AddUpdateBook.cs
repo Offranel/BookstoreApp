@@ -1,7 +1,10 @@
 using BookstoreApp.Models;
+using BookstoreApp.Database;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace BookstoreApp
 {
@@ -18,12 +21,19 @@ namespace BookstoreApp
             txtTitle = new TextBox { Left = 20, Top = 20, Width = 200, Text = string.Empty, PlaceholderText = "Title" };
             txtPrice = new TextBox { Left = 20, Top = 60, Width = 200, Text = string.Empty, PlaceholderText = "Price" };
             txtISBN = new TextBox { Left = 20, Top = 100, Width = 200, Text = string.Empty, PlaceholderText = "ISBN" };
+            txtDescription = new TextBox { Left = 20, Top = 160, Width = 300, Height = 80, Text = string.Empty, Multiline = true };
+            cmbGenres = new ComboBox { Left = 20, Top = 260, Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
 
             if (_book != null)
             {
                 txtTitle.Text = _book.Title;
                 txtPrice.Text = _book.Price.ToString();
                 txtISBN.Text = _book.ISBN;
+                txtDescription.Text = _book.Description ?? string.Empty;
+                if (_book.Genres != null && _book.Genres.Count > 0)
+                {
+                    // select first genre if present; actual selection will be applied after data binding
+                }
             }
                     }
         public AddUpdateBook(Book? book = null)
@@ -49,6 +59,7 @@ namespace BookstoreApp
                 txtPrice.Text =
                   Book.Price.ToString(CultureInfo.InvariantCulture);
                 txtISBN.Text = Book.ISBN;
+                txtDescription.Text = _book.Description ?? string.Empty;
             }
             else
             {
@@ -57,7 +68,31 @@ namespace BookstoreApp
                     Title = "",
                     Price = 0,
                     ISBN = txtISBN.Text,
+                    Description = string.Empty,
+                    Genres = new List<Genre>()
                 };
+            }
+
+            // Load genres into combobox
+            try
+            {
+                using var db = new BookStoreDb();
+                var genres = db.Genres.OrderBy(g => g.Name).ToList();
+                cmbGenres.DataSource = genres;
+                cmbGenres.DisplayMember = "Name";
+                cmbGenres.ValueMember = "GenreId";
+
+                // If editing, select the first associated genre if any
+                if (_book != null && _book.Genres != null && _book.Genres.Count > 0)
+                {
+                    var first = _book.Genres.First();
+                    var match = genres.FirstOrDefault(g => g.GenreId == first.GenreId);
+                    if (match != null) cmbGenres.SelectedItem = match;
+                }
+            }
+            catch
+            {
+                // ignore DB errors; combobox will remain empty
             }
         }
 
@@ -107,6 +142,13 @@ namespace BookstoreApp
             Book.Title = title;
             Book.Price = price;
             Book.ISBN = isbn!;
+            Book.Description = txtDescription.Text?.Trim();
+
+            // Assign selected genre (use single selection for now)
+            if (cmbGenres?.SelectedItem is Genre selectedGenre)
+            {
+                Book.Genres = new List<Genre> { selectedGenre };
+            }
 
             DialogResult = DialogResult.OK;
             Close();
