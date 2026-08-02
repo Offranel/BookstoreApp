@@ -40,10 +40,15 @@ namespace BookstoreApp
             {
                 using var db = new BookStoreDb();
 
-           foreach (Genre genre in form.Book.Genres)
+                // If the form supplied any genres, attach them as existing (unchanged)
+                if (form.Book.Genres != null && form.Book.Genres.Count > 0)
                 {
-                    db.Genres.Attach(genre);
+                    foreach (var genre in form.Book.Genres)
+                    {
+                        db.Genres.Attach(genre);
+                    }
                 }
+
                 await db.Books.AddAsync(form.Book);
                 await db.SaveChangesAsync();
                 await LoadBooksAsync();
@@ -60,6 +65,7 @@ namespace BookstoreApp
             using var db = new BookStoreDb();
 
             var book = await db.Books
+                .Include(b => b.Genres)
                 .FirstOrDefaultAsync(b => b.Id == selected.Id);
 
             if (book == null)
@@ -74,6 +80,19 @@ namespace BookstoreApp
                 book.Title = form.Book.Title;
                 book.Price = form.Book.Price;
                 book.ISBN = form.Book.ISBN;
+                book.Description = form.Book.Description;
+
+                // Replace existing genre links with the selected genres from the form.
+                book.Genres.Clear();
+                if (form.Book.Genres != null && form.Book.Genres.Count > 0)
+                {
+                    foreach (var g in form.Book.Genres)
+                    {
+                        // Ensure EF Core treats this genre as an existing entity
+                        db.Genres.Attach(g);
+                        book.Genres.Add(g);
+                    }
+                }
 
                 await db.SaveChangesAsync();
                 await LoadBooksAsync();
