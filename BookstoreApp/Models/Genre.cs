@@ -25,6 +25,6 @@ namespace BookstoreApp.Models
         /// <summary>
         /// Books that contain this genre
         /// </summary>
-        public List<Book> Books { get; set; } = new List<Book>();
+        public List<Book> Books { get; set; } = [];
     }
 }
