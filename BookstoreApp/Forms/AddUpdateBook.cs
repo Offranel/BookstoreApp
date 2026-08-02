@@ -25,7 +25,7 @@ namespace BookstoreApp
             txtPrice = new TextBox { Left = 20, Top = 60, Width = 200, Text = string.Empty, PlaceholderText = "Price" };
             txtISBN = new TextBox { Left = 20, Top = 100, Width = 200, Text = string.Empty, PlaceholderText = "ISBN" };
             txtDescription = new TextBox { Left = 20, Top = 160, Width = 300, Height = 80, Text = string.Empty, Multiline = true };
-            cmbGenres = new ComboBox { Left = 20, Top = 260, Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
+            clbGenres = new CheckedListBox { Left = 20, Top = 260, Width = 250, Height = 120, CheckOnClick = true };
 
             if (_book != null)
             {
@@ -76,21 +76,17 @@ namespace BookstoreApp
                 };
             }
 
-            // Load genres into combobox
+            // Load genres into checked list
             try
             {
                 using var db = new BookStoreDb();
                 var genres = db.Genres.OrderBy(g => g.Name).ToList();
-                cmbGenres.DataSource = genres;
-                cmbGenres.DisplayMember = "Name";
-                cmbGenres.ValueMember = "GenreId";
-
-                // If editing, select the first associated genre if any
-                if (_book != null && _book.Genres != null && _book.Genres.Count > 0)
+                // populate checkedlist with Genre objects and mark checked if the book has them
+                clbGenres.Items.Clear();
+                foreach (var g in genres)
                 {
-                    var first = _book.Genres.First();
-                    var match = genres.FirstOrDefault(g => g.GenreId == first.GenreId);
-                    if (match != null) cmbGenres.SelectedItem = match;
+                    var isChecked = _book != null && _book.Genres != null && _book.Genres.Any(bg => bg.GenreId == g.GenreId);
+                    clbGenres.Items.Add(g, isChecked);
                 }
             }
             catch
@@ -147,11 +143,17 @@ namespace BookstoreApp
             Book.ISBN = isbn!;
             Book.Description = txtDescription.Text?.Trim();
 
-            // Assign selected genre (use single selection for now)
-            if (cmbGenres?.SelectedItem is Genre selectedGenre)
+            // Assign selected genres from checked list
+            var selected = new List<Genre>();
+            if (clbGenres != null)
             {
-                Book.Genres = new List<Genre> { selectedGenre };
+                foreach (var item in clbGenres.CheckedItems)
+                {
+                    if (item is Genre g) selected.Add(g);
+                }
             }
+
+            Book.Genres = selected;
 
             DialogResult = DialogResult.OK;
             Close();
