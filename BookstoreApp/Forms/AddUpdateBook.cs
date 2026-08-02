@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace BookstoreApp
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class AddUpdateBook : Form
     {
         private Book? _book;
