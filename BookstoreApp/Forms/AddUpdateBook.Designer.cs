@@ -50,6 +50,15 @@ namespace BookstoreApp
             lblTitle.Size = new Size(74, 41);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Title";
+
+            //
+            // txtTitle
+            // 
+            txtTitle.Location = new Point(120, 17);
+            txtTitle.Name = "txtTitle";
+            txtTitle.Size = new Size(300, 47);
+            txtTitle.TabIndex = 1;
+
             // 
             // lblPrice
             // 
