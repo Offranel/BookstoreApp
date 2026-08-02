@@ -8,7 +8,7 @@ namespace BookstoreApp
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.ComboBox cmbGenres;
+        private System.Windows.Forms.CheckedListBox clbGenres;
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblPrice;
@@ -32,7 +32,7 @@ namespace BookstoreApp
             txtPrice = new TextBox();
             txtISBN = new TextBox();
             txtDescription = new TextBox();
-            cmbGenres = new ComboBox();
+            clbGenres = new CheckedListBox();
 
             lblTitle = new Label();
             lblPrice = new Label();
@@ -121,13 +121,13 @@ namespace BookstoreApp
             lblGenre.Text = "Genre";
 
             // 
-            // cmbGenres
+            // clbGenres
             // 
-            cmbGenres.Location = new Point(120, 277);
-            cmbGenres.Name = "cmbGenres";
-            cmbGenres.Size = new Size(250, 47);
-            cmbGenres.TabIndex = 9;
-            cmbGenres.DropDownStyle = ComboBoxStyle.DropDownList;
+            clbGenres.Location = new Point(120, 277);
+            clbGenres.Name = "clbGenres";
+            clbGenres.Size = new Size(250, 120);
+            clbGenres.TabIndex = 9;
+            clbGenres.CheckOnClick = true;
 
             
             btnOk.Location = new Point(120, 360);
@@ -163,7 +163,7 @@ namespace BookstoreApp
             Controls.Add(txtDescription);
 
             Controls.Add(lblGenre);
-            Controls.Add(cmbGenres);
+            Controls.Add(clbGenres);
 
             Controls.Add(btnOk);
             Controls.Add(btnCancel);
