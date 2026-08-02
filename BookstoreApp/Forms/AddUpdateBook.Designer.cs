@@ -7,6 +7,8 @@ namespace BookstoreApp
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.TextBox txtISBN;
+        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.ComboBox cmbGenres;
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblPrice;
@@ -29,6 +31,8 @@ namespace BookstoreApp
             txtTitle = new TextBox();
             txtPrice = new TextBox();
             txtISBN = new TextBox();
+            txtDescription = new TextBox();
+            cmbGenres = new ComboBox();
 
             lblTitle = new Label();
             lblPrice = new Label();
@@ -46,6 +50,15 @@ namespace BookstoreApp
             lblTitle.Size = new Size(74, 41);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Title";
+
+            //
+            // txtTitle
+            // 
+            txtTitle.Location = new Point(120, 17);
+            txtTitle.Name = "txtTitle";
+            txtTitle.Size = new Size(300, 47);
+            txtTitle.TabIndex = 1;
+
             // 
             // lblPrice
             // 
@@ -75,12 +88,53 @@ namespace BookstoreApp
             txtISBN.Size = new Size(300, 47);
             txtISBN.TabIndex = 5;
 
+            // 
+            // lblDescription
+            // 
+            var lblDescription = new Label();
+            lblDescription.AutoSize = true;
+            lblDescription.Location = new Point(20, 190);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(120, 41);
+            lblDescription.TabIndex = 6;
+            lblDescription.Text = "Description";
+
+            // 
+            // txtDescription
+            // 
+            txtDescription.Location = new Point(120, 187);
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new Size(300, 80);
+            txtDescription.TabIndex = 7;
+            txtDescription.Multiline = true;
+            txtDescription.ScrollBars = ScrollBars.Vertical;
+
+            // 
+            // lblGenre
+            // 
+            var lblGenre = new Label();
+            lblGenre.AutoSize = true;
+            lblGenre.Location = new Point(20, 280);
+            lblGenre.Name = "lblGenre";
+            lblGenre.Size = new Size(74, 41);
+            lblGenre.TabIndex = 8;
+            lblGenre.Text = "Genre";
+
+            // 
+            // cmbGenres
+            // 
+            cmbGenres.Location = new Point(120, 277);
+            cmbGenres.Name = "cmbGenres";
+            cmbGenres.Size = new Size(250, 47);
+            cmbGenres.TabIndex = 9;
+            cmbGenres.DropDownStyle = ComboBoxStyle.DropDownList;
+
             
-            btnOk.Location = new Point(230, 210);
+            btnOk.Location = new Point(120, 360);
             btnOk.Name = "btnOk";
-            btnOk.Size = new Size(90, 50);
-            btnOk.TabIndex = 6;
-            btnOk.Text = "OK";
+            btnOk.Size = new Size(300, 45);
+            btnOk.TabIndex = 10;
+            btnOk.Text = "save";
             btnOk.UseVisualStyleBackColor = true;
             btnOk.Click += btnOk_Click;
 
@@ -94,7 +148,7 @@ namespace BookstoreApp
 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(460, 300);
+            ClientSize = new Size(460, 420);
 
             Controls.Add(lblTitle);
             Controls.Add(txtTitle);
@@ -104,6 +158,12 @@ namespace BookstoreApp
 
             Controls.Add(lblISBN);
             Controls.Add(txtISBN);
+
+            Controls.Add(lblDescription);
+            Controls.Add(txtDescription);
+
+            Controls.Add(lblGenre);
+            Controls.Add(cmbGenres);
 
             Controls.Add(btnOk);
             Controls.Add(btnCancel);
